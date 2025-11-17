@@ -1,30 +1,65 @@
-# Class diary
-#
-# Create program for handling lesson scores.
-# Use python to handle student (highscool) class scores, and attendance.
-# Make it possible to:
-# - Get students total average score (average across classes)
-# - get students average score in class
-# - hold students name and surname
-# - Count total attendance of student
-#
-# Please, use your imagination and create more functionalities.
-# Your project should be able to handle entire school(s?).
-# If you have enough courage and time, try storing (reading/writing)
-# data in text files (YAML, JSON).
-# If you have even more courage, try implementing user interface (might be text-like).
-#
-#Try to expand your implementation as best as you can. 
-#Think of as many features as you can, and try implementing them.
-#Make intelligent use of pythons syntactic sugar (overloading, iterators, generators, etc)
-#Most of all: CREATE GOOD, RELIABLE, READABLE CODE.
-#The goal of this task is for you to SHOW YOUR BEST python programming skills.
-#Impress everyone with your skills, show off with your code.
-#
-#Your program must be runnable with command "python task.py".
-#Show some usecases of your library in the code (print some things)
-#
-#When you are done upload this code to your github repository. 
-#
-#Delete these comments before commit!
-#Good luck.
+import collections
+
+# persistence (e.g. via json.dump())
+# tui stretch goal
+
+class Test:
+    def __init__(self):
+        pass
+class Teacher:
+    def __init__(self, name):
+        self.name = name
+class Course:
+    def __init__(self, teacher_id, name):
+        self.teacher_id = teacher_id
+        self.name = name
+        self.tests = {}
+class Student:
+    def __init__(self, name):
+        self.name = name
+class Class:
+    def __init__(self):
+        self.students = {}
+        self.courses = {}
+class School:
+    def __init__(self):
+        self.classes = {}
+        self.teachers = {}
+
+class System:
+    def __init__(self):
+        self.schools = {}
+    # writes
+    def register_school(self, s_id, school):
+        self.schools[s_id] = school
+    def register_class(self, school_id, class_id, clazz):
+        self.schools[school_id].classes[class_id] = clazz
+    def register_student(self, school_id, class_id, student_id, student):
+        self.schools[school_id].classes[class_id].students[student_id] = student
+    def register_teacher(self, school_id, teacher_id, teacher):
+        self.schools[school_id].teachers[teacher_id] = teacher
+    def register_course(self, school_id, class_id, course_id, course):
+        self.schools[school_id].classes[class_id].courses[course_id] = course
+    def create_test(self, school_id, class_id, course_id, test_uid, test):
+        self.schools[school_id].classes[class_id].courses[course_id].tests[test_uid] = test
+    def mark_class_instance(self, course_id):
+        pass
+    def mark_positive_attendance(self, student_id, class_instance_id, course_id):
+        pass
+
+    # reads
+    def get_gpa_across_classes(self, s_id):
+        pass
+    def get_in_class_gpa(self, clazz_id, school_id):
+        pass
+    def count_total_student_attendance(self, school_id, student_id):
+        pass
+if __name__ == "__main__":
+    system = System()
+
+    system.register_school(0, School())
+    system.register_class(0, 0, Class())
+    system.register_student(0, 0, 0, Student("John Doe"))
+    system.register_teacher(0, 0, Teacher("Jane Doe"))
+    system.register_course(0, 0, 0, Course(0, "Chemistry"))
+
