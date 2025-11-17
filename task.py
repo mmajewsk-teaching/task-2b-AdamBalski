@@ -1,5 +1,6 @@
 import collections
 
+# todo: 
 # persistence (e.g. via json.dump())
 # tui stretch goal
 
